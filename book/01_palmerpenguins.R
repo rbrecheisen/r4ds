@@ -73,3 +73,8 @@ ggplot(penguins, aes(x = species)) +
 
 ggplot(diamonds, aes(x = carat)) +
   geom_histogram(bins = 100)
+
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+ggsave(filename = "penguin-plot.png")
+ggsave(filename = "penguin-plot.pdf")
