@@ -1,6 +1,8 @@
-install.packages(c("nycflights13"))
+install.packages(c("nycflights13", "lme4", "Lahman"))
 library(nycflights13)
 library(tidyverse)
+library(lme4)
+library(Lahman)
 flights
 flights |>
   filter(dep_delay > 120)
@@ -90,3 +92,53 @@ flights |> select(contains("TIME", ignore.case = FALSE))
 flights |>
   rename(air_time_min = air_time) |>
   relocate(air_time_min)
+
+x <- flights |>
+  group_by(carrier, month) |>
+  summarize(mean_delay = mean(dep_delay, na.rm = TRUE), n = n())
+View(x)
+
+x <- flights |> 
+  group_by(dest) |>
+  slice_max(dep_delay, n = 1) |>
+  relocate(dest)
+View(x)
+
+x <- flights |> 
+  group_by(carrier, dest) |>
+  summarize(n = n())
+View(x)
+
+# Disentangle carrier and origin effects on departure delays
+overall_effects <- flights |>
+  group_by(carrier) |>
+  summarize(avg_delay = mean(dep_delay, na.rm = TRUE))
+View(overall_effects)
+
+m <- lmer(dep_delay ~ 1 + (1 | carrier) + (1 | origin), data = flights)
+
+carrier_effects <- ranef(m)$carrier |>
+  tibble::rownames_to_column("carrier") |>
+  rename(carrier_avg_delay = `(Intercept)`) # backticks to interpret column name literally
+View(carrier_effects)
+
+origin_effects <- ranef(m)$origin |>
+  tibble::rownames_to_column("origin") |>
+  rename(origin_avg_delay = `(Intercept)`)
+View(origin_effects)
+
+View(Lahman::Batting)
+
+batters <- Lahman::Batting |>
+  group_by(playerID) |>
+  summarize(
+    performance = sum(H, na.rm = TRUE) / sum(AB, na.rm = TRUE),
+    n = sum(AB, na.rm = TRUE)
+  )
+View(batters)
+
+batters |>
+  filter(n > 100) |>
+  ggplot(aes(x = n, y = performance)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(se = FALSE)
