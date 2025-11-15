@@ -1,8 +1,9 @@
 library(tidyverse)
 
 billboard
+View(billboard)
 
-billboard |> 
+x <- billboard |> 
   pivot_longer(
     cols = starts_with("wk"),
     names_to = "week",
@@ -10,6 +11,7 @@ billboard |>
     values_drop_na = TRUE
   ) |>
   mutate(week = parse_number(week))
+View(x)
 
 df <- tribble(
   ~id,  ~bp1, ~bp2,
