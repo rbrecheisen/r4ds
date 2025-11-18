@@ -3,26 +3,28 @@
 #------------------------------------------------------------------------
 
 library(tidyverse)
+library(scales)
 
 #------------------------------------------------------------------------
 # Load helper scripts
 #------------------------------------------------------------------------
 
 source("projects/tlc/install_packages.R")
-source("projects/tlc/download_tlc_data.R")
+source("projects/tlc/download_TLC_data.R")
+source("projects/tlc/utilities.R")
 source("projects/tlc/build_df.R")
 
 #------------------------------------------------------------------------
 # Set global vars
 #------------------------------------------------------------------------
 
-data_dir <- "D:/r4ds/tlc"
+data_dir <- if(is_windows()) "D:/r4ds/tlc" else "/Users/ralph/data/tlc"
 
 #------------------------------------------------------------------------
 # Download TLC data as .parquet files
 #------------------------------------------------------------------------
 
-#download_tlc_data(data_dir)
+# download_TLC_data(data_dir)
 
 #------------------------------------------------------------------------
 # Build (lazy) dataframe from .parquet data
@@ -56,4 +58,7 @@ df |>
       title = "Trip volume over time",
       x = "Date",
       y = "Number of trips"
+    ) +
+    scale_y_continuous(
+      labels = label_number(scale = 1/1000, suffix = "K")
     )
