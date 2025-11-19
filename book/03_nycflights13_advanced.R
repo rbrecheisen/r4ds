@@ -36,18 +36,22 @@ View(x)
 
 x <- flights |>
   group_by(origin, dest) |>
-  summarize(avg_arr_delay = mean(arr_delay, na.rm = TRUE), .groups = "drop") |>
-  arrange(desc(avg_arr_delay))
+  summarize(
+    avg_arr_delay = mean(arr_delay, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(desc(avg_arr_delay)) |>
+  slice(1:10)
 View(x)
 
 # --------------------------------------------------------------------------------------------
 # 3. Does departure delay correlate with arrival delay differently for each airline?
 # --------------------------------------------------------------------------------------------
- 
 
 # --------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------
 # 4. At what time of day do flights tend to depart earliest (least delay)?
+# --------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------
 # 5. Which destinations are most impacted by weather (proxy: high dep_delay variance)?
