@@ -9,10 +9,10 @@ library(scales)
 # Load helper scripts
 #------------------------------------------------------------------------
 
-source("projects/tlc/install_packages.R")
-source("projects/tlc/download_TLC_data.R")
-source("projects/tlc/utilities.R")
-source("projects/tlc/build_df.R")
+source("install_packages.R")
+source("download_TLC_data.R")
+source("build_df.R")
+source("../os.R")
 
 #------------------------------------------------------------------------
 # Set global vars
