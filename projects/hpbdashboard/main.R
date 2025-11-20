@@ -33,7 +33,6 @@ View(study_results_clean_cols)
 # ----------------------------------------------------------------------------------
 study_results_clean_cols_correct_types <- study_results_clean_cols |>
   mutate(
-    site_abbreviation = tolower(site_abbreviation),
     lever_pancreas = tolower(lever_pancreas),
     sex = tolower(sex)
   )
