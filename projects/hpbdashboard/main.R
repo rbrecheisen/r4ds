@@ -18,14 +18,12 @@ excel_file_path_names <- "D:\\Castor\\ESPRESSO_v3.0_participant_data_excel_2025_
 # Load data
 # ----------------------------------------------------------------------------------
 study_results <- readxl::read_excel(excel_file_path_names)
-View(study_results)
 
 
 # ----------------------------------------------------------------------------------
 # Clean up column names
 # ----------------------------------------------------------------------------------
 study_results_clean_cols <- janitor::clean_names(study_results)
-View(study_results_clean_cols)
 
 
 # ----------------------------------------------------------------------------------
@@ -36,7 +34,6 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
     lever_pancreas = tolower(lever_pancreas),
     sex = tolower(sex)
   )
-View(study_results_clean_cols_correct_types)
 
 
 # ----------------------------------------------------------------------------------
