@@ -1,23 +1,13 @@
 library(tidyverse)
 
 source("../utils/os.R")
-
-# ----------------------------------------------------------------------------------
-# General info about dataset
-# ----------------------------------------------------------------------------------
-#
-# How many liver procedures did we perform in the last N months?
-#
-# We have different resection types, e.g., "wedge", "hemi", "extended_hemi, other", etc. We
-# also have different procedure types, e.g., "ablation", "resection", "both". Also
-# make sure you're able to visualize the number of "canceled" procedures. Not sure
-# if this value is part of the resection types or procedure types.
+source("R/liver.R")
 
 
 # ----------------------------------------------------------------------------------
 # File paths
 # ----------------------------------------------------------------------------------
-excel_file_path_windows = "D:\\Castor\\ESPRESSO_v3.0_participant_data_excel_2025_11_19-15_49_42\\ESPRESSO_v3.0_excel_export_20251119034941.xlsx"
+excel_file_path_windows = "C:\\Users\\r.brecheisen\\OneDrive - Maastricht University\\Research\\Data\\ESPRESSO_v3.0_excel_export_20251120045651.xlsx"
 excel_file_path_macos = "/Users/ralph/Library/CloudStorage/OneDrive-MaastrichtUniversity/Research/Data/ESPRESSO_v3.0_excel_export_20251120045651.xlsx"
 excel_file_path_names <- if(is_windows()) excel_file_path_windows else excel_file_path_macos
 
@@ -40,29 +30,51 @@ study_results_clean_cols <- janitor::clean_names(study_results)
 study_results_clean_cols_correct_types <- study_results_clean_cols |>
   mutate(
     lever_pancreas = tolower(lever_pancreas),
-    sex = tolower(sex)
-  )
+    sex = tolower(sex),
+    date_mdo = as.Date(date_mdo, format = "%d-%m-%Y"),
+    date_operatie = as.Date(date_operatie, format = "%d-%m-%Y"),
+    datum_ontslag = as.Date(datum_ontslag, format = "%d-%m-%Y"),
+    operatie_lever_number_wigresectie = as.integer(operatie_lever_number_wigresectie),
+    operatie_lever_number_segmentresectie = as.integer(operatie_lever_number_segmentresectie),
+    operatie_lever_number_hemihepatectomie = as.integer(operatie_lever_number_hemihepatectomie),
+    operatie_lever_number_extended_hemihepatectomie = as.integer(operatie_lever_number_extended_hemihepatectomie),
+    operatie_lever_number_galwegresectie = as.integer(operatie_lever_number_galwegresectie),
+    operatie_lever_number_cholecystectomie = as.integer(operatie_lever_number_cholecystectomie),
+    operatie_lever_number_klierdissectie = as.integer(operatie_lever_number_klierdissectie),
+    operatie_lever_number_anders = as.integer(operatie_lever_number_anders),
+    operatie_lever_number_operatie_niet_doorgegaan = as.integer(operatie_lever_number_operatie_niet_doorgegaan)
+  ) |>
+  # Remove rows with a date in the future
+  filter(date_operatie <= Sys.Date())
 
 
 # ----------------------------------------------------------------------------------
-# Count nr. liver and pancreas rows
+# Show nr. of liver and pancreas rows
 # ----------------------------------------------------------------------------------
 study_results_clean_cols_correct_types |>
   summarize(
     liver = sum(lever_pancreas == "lever", na.rm = TRUE),
-    pancreas = sum(lever_pancreas == "pancreas", na.rm = TRUE)
+    pancreas = sum(lever_pancreas == "pancreas", na.rm = TRUE),
   )
+
+
+# ----------------------------------------------------------------------------------
+# Get earliest and latest operation dates
+# ----------------------------------------------------------------------------------
+date_min <- min(study_results_clean_cols_correct_types$date_operatie, na.rm = TRUE)
+date_max <- max(study_results_clean_cols_correct_types$date_operatie, na.rm = TRUE)
 
 
 # ----------------------------------------------------------------------------------
 # Count nr. of liver procedures
 # ----------------------------------------------------------------------------------
 nr <- nr_liver_procedures(
-  arg_data = study_results_clean_cols_correct_types,
-  arg_start_date = as.Date("2025-11-20"),
-  arg_end_date = as.Date("2025-11-21"),
-  arg_resection_types = "all",
-  arg_procedure_types = "all",
-  arg_resection_procedure_types = "all",
-  arg_ablation_procedure_types = "all"
+  data = study_results_clean_cols_correct_types,
+  start_date = date_min,
+  end_date = date_max,
+  resection_type = "",
+  procedure_types = "",
+  resection_procedure_types = "",
+  ablation_procedure_types = ""
 )
+print(nr)

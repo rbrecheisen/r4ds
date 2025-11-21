@@ -7,7 +7,7 @@
             "1": "pancreas"
         }
     },
-    "lever_operatie": {
+    "operatie_lever": {
         "description": "Indicates what was resected in the liver (resection type)",
         "data_type": "string",
         "values": {
@@ -22,7 +22,7 @@
             "Operatie niet doorgegaan": ""
         }
     },
-    "soort_operatie_lever": {
+    "operatie_soort_lever": {
         "description": "Indicates what type of procedure was performed on the liver",
         "data_type": "string",
         "values": {
@@ -55,5 +55,17 @@
             "Exploratie zonder resectie": "Resection canceled after exploration",
             "Overig": "Something else"
         }
+    },
+    "date_operatie": {
+        "description": "Date of surgery",
+        "data_type": "date"
+    },
+    "date_mdo": {
+        "description": "Date of multi-disciplinary meeting",
+        "data_type": "date"
+    },
+    "datum_ontslag": {
+        "description": "Date of discharge",
+        "data_type": "date"
     }
 }
