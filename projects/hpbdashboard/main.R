@@ -3,8 +3,13 @@ library(tidyverse)
 # ----------------------------------------------------------------------------------
 # General info about dataset
 # ----------------------------------------------------------------------------------
-# (1)  How many liver procedures did we perform in the last N months? 
-# (2)  How many pancreas procedures did we perform in the last N months?
+#
+# How many liver procedures did we perform in the last N months?
+#
+# We have different resection types, e.g., "wedge", "hemi", "extended_hemi, other", etc. We
+# also have different procedure types, e.g., "ablation", "resection", "both". Also
+# make sure you're able to visualize the number of "canceled" procedures. Not sure
+# if this value is part of the resection types or procedure types.
 
 
 # ----------------------------------------------------------------------------------
@@ -18,14 +23,12 @@ excel_file_path_names <- "D:\\Castor\\ESPRESSO_v3.0_participant_data_excel_2025_
 # Load data
 # ----------------------------------------------------------------------------------
 study_results <- readxl::read_excel(excel_file_path_names)
-View(study_results)
 
 
 # ----------------------------------------------------------------------------------
 # Clean up column names
 # ----------------------------------------------------------------------------------
 study_results_clean_cols <- janitor::clean_names(study_results)
-View(study_results_clean_cols)
 
 
 # ----------------------------------------------------------------------------------
@@ -36,7 +39,6 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
     lever_pancreas = tolower(lever_pancreas),
     sex = tolower(sex)
   )
-View(study_results_clean_cols_correct_types)
 
 
 # ----------------------------------------------------------------------------------
@@ -47,3 +49,17 @@ study_results_clean_cols_correct_types |>
     liver = sum(lever_pancreas == "lever", na.rm = TRUE),
     pancreas = sum(lever_pancreas == "pancreas", na.rm = TRUE)
   )
+
+
+# ----------------------------------------------------------------------------------
+# Count nr. of liver procedures
+# ----------------------------------------------------------------------------------
+nr <- nr_liver_procedures(
+  arg_data = study_results_clean_cols_correct_types,
+  arg_start_date = as.Date("2025-11-20"),
+  arg_end_date = as.Date("2025-11-21"),
+  arg_resection_types = "all",
+  arg_procedure_types = "all",
+  arg_resection_procedure_types = "all",
+  arg_ablation_procedure_types = "all"
+)
