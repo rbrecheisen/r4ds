@@ -1,67 +1,37 @@
-# Resection types
-RESECTION_TYPES = c(
-  "wedge" = "Wigresectie",
-  "segment" = "Segmentresectie",
-  "hemi" = "Hemihepatectomie",
-  "extended_hemi" = "Extended hemihepatectomie",
-  "bile_ducts" = "Galwegresectie",
-  "cholecystectomy" = "Cholecystectomie",
-  "gland" = "Klierdissectie",
-  "other" = "Anders",
-  "canceled" = "Operatie niet doorgegaan"
-)
-
-# Procedure types
-PROCEDURE_TYPES = c(
-  "resection" = "Resectie",
-  "ablation" = "Ablatie",
-  "resection_ablation" = "Resectie en ablatie",
-  "not_applicable" = "Niet van toepassing"
-)
-
-# Resection procedure types
-RESECTION_PROCEDURE_TYPES = c(
-  "open" = "Open procedure",
-  "laparoscopic" = "Volledig laparoscopische procedure",
-  "laparoscopic_converted" = "Laparoscopisch met conversie",
-  "robot" = "Volledig robot",
-  "robot_converted_laparoscopic" = "Robot met conversie naar laparoscopie",
-  "robot_converted_open" = "Robot met conversie naar open",
-  "no_resection" = "Exploratie zonder resectie",
-  "other" = "Overig"
-)
-
-# Ablation procedure types
-ABLATION_PROCEDURE_TYPES = c(
-  "percutaneous" = "Percutanale ablatie",
-  "open" = "Open ablatie",
-  "laparoscopic" = "Laparoscopische ablatie",
-  "unknown" = "Onbekend"
-)
+# ----------------------------------------------------------------------------------
+# Get start date for given end date by looking N months back
+# ----------------------------------------------------------------------------------
+get_start_date <- function(end_date, nr_months) {
+  return(end_date %m-% lubridate::period(months = nr_months))
+}
 
 
 # ----------------------------------------------------------------------------------
 # Calculate number of liver procedures
 # ----------------------------------------------------------------------------------
-nr_liver_procedures <- function(
+get_nr_liver_procedures <- function(
   data, 
-  start_date, 
   end_date,
+  nr_months_lookback,
   resection_types,
-  procedure_types,
-  resection_procedure_types,
-  ablation_procedure_types
+  procedure_types
 ) {
 
-  # 
+  start_date <- get_start_date(end_date, nr_months_lookback)
+
+  resection_types_cols <- paste0("operatie_lever_number_", resection_types)
+  procedure_types_cols <- paste0("resectie_ablatie_number_", procedure_types)
 
   # Filter and count the resulting rows
-  # QUESTION: How to filter on one-hot encoded columns?
   result <- data |>
     filter(
       lever_pancreas == "lever",
       date_operatie >= start_date,
-      date_operatie <= end_date
+      date_operatie <= end_date,
+      (
+        dplyr::if_any(dplyr::all_of(resection_types_cols), ~ .x == 1) |
+        dplyr::if_any(dplyr::all_of(procedure_types_cols), ~ .x == 1)
+      )
     )
   nr <- nrow(result)
 
