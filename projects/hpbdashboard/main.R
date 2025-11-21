@@ -1,5 +1,7 @@
 library(tidyverse)
 
+source("../utils/os.R")
+
 # ----------------------------------------------------------------------------------
 # General info about dataset
 # ----------------------------------------------------------------------------------
@@ -15,8 +17,9 @@ library(tidyverse)
 # ----------------------------------------------------------------------------------
 # File paths
 # ----------------------------------------------------------------------------------
-excel_file_path_indexes <- "D:\\Castor\\ESPRESSO_v3.0_participant_data_excel_2025_11_19-15_49_42\\ESPRESSO_v3.0_excel_export_20251119034941.xlsx"
-excel_file_path_names <- "D:\\Castor\\ESPRESSO_v3.0_participant_data_excel_2025_11_20-12_22_30\\ESPRESSO_v3.0_excel_export_20251120122229.xlsx"
+excel_file_path_windows = "D:\\Castor\\ESPRESSO_v3.0_participant_data_excel_2025_11_19-15_49_42\\ESPRESSO_v3.0_excel_export_20251119034941.xlsx"
+excel_file_path_macos = "/Users/ralph/Library/CloudStorage/OneDrive-MaastrichtUniversity/Research/Data/ESPRESSO_v3.0_excel_export_20251120045651.xlsx"
+excel_file_path_names <- if(is_windows()) excel_file_path_windows else excel_file_path_macos
 
 
 # ----------------------------------------------------------------------------------
@@ -32,7 +35,7 @@ study_results_clean_cols <- janitor::clean_names(study_results)
 
 
 # ----------------------------------------------------------------------------------
-# Convert columns to correct data type
+# Create lower-case column names for some columns
 # ----------------------------------------------------------------------------------
 study_results_clean_cols_correct_types <- study_results_clean_cols |>
   mutate(
