@@ -76,9 +76,9 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
 # ----------------------------------------------------------------------------------
 # Print relevant column names
 # ----------------------------------------------------------------------------------
-# print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "operatie_lever_")])
-# print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "resectie_ablatie_")])
-
+print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "operatie_lever_")])
+print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "resectie_ablatie_")])
+print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "operatie_pancreas")])
 
 # ----------------------------------------------------------------------------------
 # Get earliest and latest operation dates
