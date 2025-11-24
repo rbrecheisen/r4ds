@@ -1,7 +1,8 @@
 library(tidyverse)
 
 source("../utils/os.R")
-source("R/liver.R")
+source("R/liver/nr_procedures.R")
+source("R/pancreas/nr_procedures.R")
 
 
 # ----------------------------------------------------------------------------------
@@ -57,28 +58,32 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
     resectie_ablatie_number_ablatie_percunatale_ablatie = as.integer(resectie_ablatie_number_ablatie_percunatale_ablatie),
     resectie_ablatie_number_ablatie_open_ablatie = as.integer(resectie_ablatie_number_ablatie_open_ablatie),
     resectie_ablatie_number_ablatie_laparoscopische_ablatie = as.integer(resectie_ablatie_number_ablatie_laparoscopische_ablatie),
-    resectie_ablatie_number_ablatie_onbekend = as.integer(resectie_ablatie_number_ablatie_onbekend)
+    resectie_ablatie_number_ablatie_onbekend = as.integer(resectie_ablatie_number_ablatie_onbekend),
+
+    operatie_pancreas = janitor::make_clean_names(operatie_pancreas, allow_dupes = TRUE),
+    operatie_pancreas_techniek = janitor::make_clean_names(operatie_pancreas_techniek, allow_dupes = TRUE)
   ) |>
   # Remove rows with a date in the future
   filter(date_operatie <= Sys.Date())
 
+# print(study_results_clean_cols_correct_types$operatie_pancreas)
 
 # ----------------------------------------------------------------------------------
 # Show nr. of liver and pancreas rows
 # ----------------------------------------------------------------------------------
-# study_results_clean_cols_correct_types |>
-#   summarize(
-#     liver = sum(lever_pancreas == "lever", na.rm = TRUE),
-#     pancreas = sum(lever_pancreas == "pancreas", na.rm = TRUE),
-#   )
+study_results_clean_cols_correct_types |>
+  summarize(
+    liver = sum(lever_pancreas == "lever", na.rm = TRUE),
+    pancreas = sum(lever_pancreas == "pancreas", na.rm = TRUE),
+  )
 
 
 # ----------------------------------------------------------------------------------
 # Print relevant column names
 # ----------------------------------------------------------------------------------
-print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "operatie_lever_")])
-print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "resectie_ablatie_")])
-print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "operatie_pancreas")])
+# print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "operatie_lever_")])
+# print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "resectie_ablatie_")])
+# print(names(study_results_clean_cols_correct_types)[startsWith(names(study_results_clean_cols_correct_types), "operatie_pancreas")])
 
 # ----------------------------------------------------------------------------------
 # Get earliest and latest operation dates
@@ -120,3 +125,36 @@ nr <- get_nr_liver_procedures(
 
 print("")
 print(paste0("Aantal lever procedures tussen ", date_min, " en ", date_max, " = ", nr))
+
+nr <- get_nr_pancreas_procedures(
+  data = study_results_clean_cols_correct_types,
+  end_date = date_max,
+  nr_months_lookback = 36,
+  resection_types = c(
+    "pppd",
+    "klassieke_whipple",
+    "prpd",
+    "pancreas_lichaam_staart_resectie_met_of_zonder_mistresectie",
+    "appleby",
+    "totale_pancreatectomie",
+    "enucleatie_pancreastumor",
+    "galwegresectie",
+    "frey",
+    "pancreaticojejunostomie",
+    "overig",
+    "operatie_niet_doorgegaan"
+  ),
+  procedure_types = c(
+    "open_procedure",
+    "volledig_laparoscopische_procedure",
+    "laparoscopisch_met_conversie_naar_open",
+    "exploratie_zonder_resectie",
+    "volledig_robot",
+    "robot_met_conversie_naar_open",
+    "robot_met_conversie_naar_laparoscopie",
+    "overig"
+  )
+)
+
+print("")
+print(paste0("Aantal pancreas procedures tussen ", date_min, " en ", date_max, " = ", nr))
