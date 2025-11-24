@@ -17,7 +17,6 @@ get_nr_liver_procedures <- function(
   resection_types_cols <- paste0("operatie_lever_number_", resection_types)
   procedure_types_cols <- paste0("resectie_ablatie_number_", procedure_types)
 
-  # Filter and count the resulting rows
   result <- data |>
     filter(
       lever_pancreas == "lever",

@@ -3,6 +3,7 @@ library(tidyverse)
 source("../utils/os.R")
 source("R/liver/nr_procedures.R")
 source("R/pancreas/nr_procedures.R")
+source("R/nr_days_between.R")
 
 
 # ----------------------------------------------------------------------------------
@@ -158,3 +159,15 @@ nr <- get_nr_pancreas_procedures(
 
 print("")
 print(paste0("Aantal pancreas procedures tussen ", date_min, " en ", date_max, " = ", nr))
+
+nr_days <- get_nr_days_between(
+  data = study_results_clean_cols_correct_types,
+  end_date = date_max,
+  nr_months_lookback = 36,
+  lever_pancreas = "lever",
+  date_column1 = "date_mdo",
+  date_column2 = "date_operatie"
+)
+
+print("")
+print(paste0("Gemiddeld aantal dagen tussen MDO en operatie (lever): ", nr_days))
