@@ -36,10 +36,12 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
     lever_pancreas = tolower(lever_pancreas),
     sex = tolower(sex),
 
+    # Convert string dates to date objects
     date_mdo = as.Date(date_mdo, format = "%d-%m-%Y"),
     date_operatie = as.Date(date_operatie, format = "%d-%m-%Y"),
     datum_ontslag = as.Date(datum_ontslag, format = "%d-%m-%Y"),
 
+    # Convert one-hot encoded values to integers
     operatie_lever_number_wigresectie = as.integer(operatie_lever_number_wigresectie),
     operatie_lever_number_segmentresectie = as.integer(operatie_lever_number_segmentresectie),
     operatie_lever_number_hemihepatectomie = as.integer(operatie_lever_number_hemihepatectomie),
@@ -50,6 +52,7 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
     operatie_lever_number_anders = as.integer(operatie_lever_number_anders),
     operatie_lever_number_operatie_niet_doorgegaan = as.integer(operatie_lever_number_operatie_niet_doorgegaan),
 
+    # Convert one-hot encoded values to integers
     resectie_ablatie_number_resectie_open_procedure = as.integer(resectie_ablatie_number_resectie_open_procedure),
     resectie_ablatie_number_resectie_volledig_laparoscopische_procedure = as.integer(resectie_ablatie_number_resectie_volledig_laparoscopische_procedure),
     resectie_ablatie_number_resectie_laparoscopisch_met_conversie_naar_open = as.integer(resectie_ablatie_number_resectie_laparoscopisch_met_conversie_naar_open),
@@ -62,15 +65,23 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
     resectie_ablatie_number_ablatie_laparoscopische_ablatie = as.integer(resectie_ablatie_number_ablatie_laparoscopische_ablatie),
     resectie_ablatie_number_ablatie_onbekend = as.integer(resectie_ablatie_number_ablatie_onbekend),
 
+    # Convert string values to clean names
     operatie_pancreas = janitor::make_clean_names(operatie_pancreas, allow_dupes = TRUE),
     operatie_pancreas_techniek = janitor::make_clean_names(operatie_pancreas_techniek, allow_dupes = TRUE)
   ) |>
+  
+  # Rename columns for consistency
+  rename(
+    date_ontslag = datum_ontslag,
+    date_heropname = datum_heropname
+  ) |>
+  
   # Remove rows with a date in the future
   filter(
     date_operatie <= Sys.Date(),
     date_mdo <= Sys.Date(),
-    datum_ontslag <= Sys.Date(),
-    datum_heropname <= Sys.Date()
+    date_ontslag <= Sys.Date(),
+    date_heropname <= Sys.Date()
   )
 
 # print(study_results_clean_cols_correct_types$operatie_pancreas)
@@ -176,7 +187,7 @@ nr_days <- get_nr_days_between(
 )
 
 print("")
-print("Min/max aantal dagen tussen MDO en operatie (lever)")
+print("Aantal dagen tussen MDO en operatie (lever)")
 print(nr_days)
 
 nr_days <- get_nr_days_between(
@@ -185,9 +196,9 @@ nr_days <- get_nr_days_between(
   nr_months_lookback = 36,
   lever_pancreas = "lever",
   date_column1 = "date_operatie",
-  date_column2 = "datum_ontslag"
+  date_column2 = "date_ontslag"
 )
 
 print("")
-print("Min/max aantal dagen tussen operatie en ontslag (lever)")
+print("Aantal dagen tussen operatie en ontslag (lever)")
 print(nr_days)
