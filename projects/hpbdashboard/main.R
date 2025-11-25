@@ -1,9 +1,10 @@
-library(tidyverse)
-
 source("../utils/os.R")
+source("dependencies.R")
 source("R/liver/nr_procedures.R")
 source("R/pancreas/nr_procedures.R")
 source("R/nr_days_between.R")
+
+library(tidyverse)
 
 
 # ----------------------------------------------------------------------------------
@@ -65,7 +66,12 @@ study_results_clean_cols_correct_types <- study_results_clean_cols |>
     operatie_pancreas_techniek = janitor::make_clean_names(operatie_pancreas_techniek, allow_dupes = TRUE)
   ) |>
   # Remove rows with a date in the future
-  filter(date_operatie <= Sys.Date())
+  filter(
+    date_operatie <= Sys.Date(),
+    date_mdo <= Sys.Date(),
+    datum_ontslag <= Sys.Date(),
+    datum_heropname <= Sys.Date()
+  )
 
 # print(study_results_clean_cols_correct_types$operatie_pancreas)
 
@@ -170,4 +176,18 @@ nr_days <- get_nr_days_between(
 )
 
 print("")
-print(paste0("Gemiddeld aantal dagen tussen MDO en operatie (lever): ", nr_days))
+print("Min/max aantal dagen tussen MDO en operatie (lever)")
+print(nr_days)
+
+nr_days <- get_nr_days_between(
+  data = study_results_clean_cols_correct_types,
+  end_date = date_max,
+  nr_months_lookback = 36,
+  lever_pancreas = "lever",
+  date_column1 = "date_operatie",
+  date_column2 = "datum_ontslag"
+)
+
+print("")
+print("Min/max aantal dagen tussen operatie en ontslag (lever)")
+print(nr_days)
