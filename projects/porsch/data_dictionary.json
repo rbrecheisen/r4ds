@@ -1,0 +1,476 @@
+{
+    "record_id": {
+        "description": "Record ID coding hospital and patient number",
+        "data_type": "string"
+    },
+    "institute_abbreviation_castor_x": {
+        "description": "Hospital abbreviation",
+        "data_type": "string"
+    },
+    "gender_castor_x": {
+        "description": "Gender",
+        "data_type": "factor",
+        "values": {
+            "0": "Male",
+            "1": "Female"
+        }
+    },
+    "year_birth_castor_x": {
+        "description": "Year of birth",
+        "data_type": "integer"
+    },
+    "indexresection_date_x": {
+        "description": "Date pancreatic resection",
+        "data_type": "date"
+    },
+    "age_surgery_x": {
+        "description": "Age at time of surgery",
+        "data_type": "integer"
+    },
+    "datopn": {
+        "description": "Date of hospital admission",
+        "data_type": "date"
+    },
+    "datont_castor": {
+        "description": "Date of discharge from hospital",
+        "data_type": "date"
+    },
+    "neoadjuvant_castor_10": {
+        "description": "Neoadjuvant treatment",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Chemoradiotherapy",
+            "2": "Chemotherapy",
+            "3": "Radiotherapy",
+            "7": "Other"
+        }
+    },
+    "neoadj_treatment_other": {
+        "description": "Description of other neoadjuvant treatment",
+        "data_type": "string",
+        "depends_on": "neoadjuvant_castor_10"
+    },
+    "neoadjuvant_chemo": {
+        "description": "Type of chemotherapy",
+        "data_type": "factor",
+        "values": {
+            "1": "FOLFIRINOX",
+            "2": "Gemcitabine",
+            "7": "Other"
+        },
+        "depends_on": "neoadjuvant_castor_10 in [1,2]"
+    },
+    "neoadj_anders" :{
+        "description": "Description of other type of chemotherapy",
+        "data_type": "string",
+        "depends_on": "neoadjuvant_chemo == 7"
+    },
+    "sandostatine": {
+        "description": "Somatostatin analogues",
+        "data_type": "factor",
+        "values": {
+            "NA": "No",
+            "1": "Lanreotide (somatulin)",
+            "2": "Ocreotide",
+            "3": "Sandostatin",
+            "4": "Sandostatin LAR",
+            "5": "Pasireotide (signifor)",
+            "6": "Somatostatin",
+            "7": "Unknown",
+            "77": "Other, namely"
+        }
+    },
+    "sandostat_anders": {
+        "description": "Description of other somatostatin analogue",
+        "data_type": "string",
+        "depends_on": "sandostatine == 77"
+    },
+    "implementphase": {
+        "description": "Phase in stepped-wedge implementation study",
+        "data_type": "factor",
+        "values": {
+            "1": "Pre-implementation (Baseline period before the new protocol is used. Usual care only; this is your control phase)",
+            "2": "Wash-in (Transition period where the new protocol is being introduced but not yet consistently applied. Staff training, protocol rollout, and gradual uptake happen here. Data from this phase are often excluded or analyzed separately because adherence is inconsistent)",
+            "3": "Post-implementation (The new protocol is fully in place and routinely followed. This is the “after” phase for outcome comparison)"
+        }
+    },
+    "typok": {
+        "description": "Type of resection",
+        "data_type": "factor",
+        "values": {
+            "1": "PPPD",
+            "2": "Classical Whipple",
+            "3": "PRPD",
+            "4": "Distal pancreatectomy (body and tail resection)",
+            "5": "Central pancreas resection",
+            "6": "Total pancreas resection",
+            "10": "Enucleation tumor",
+            "77": "Other, namely"
+        }
+    },
+    "typok_anders": {
+        "description": "Description of other type of resection",
+        "data_type": "string",
+        "depends_on": "typok == 77"
+    },
+    "drain_castor": {
+        "description": "Peri-operative inter-abdominal drains",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "drain_aantal": {
+        "description": "Number of drains",
+        "data_type": "integer",
+        "depends_on": "drain_castor == 1"
+    },
+    "operative_time": {
+        "description": "Procedure time (minutes)",
+        "data_type": "integer"
+    },
+    "operative_bloodloss": {
+        "description": "Blood loss (mL) during procedure",
+        "data_type": "integer"
+    },
+    "datoverleden_castor": {
+        "description": "Date of death (if applicable)",
+        "data_type": "date"
+    },
+    "doodsoorzaak": {
+        "description": "Cause of death",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "1": "Organ failure",
+            "2": "Bleeding",
+            "3": "Cardiac failure",
+            "4": "Other, namely"
+        }
+    },
+    "doodsoorzaak_anders": {
+        "description": "Description of other cause of death",
+        "data_type": "string",
+        "depends_on": "doodsoorzaak == 4"
+    },
+    "aantal_invasive_intervent": {
+        "description": "Number of invasive (re)interventions",
+        "data_type": "integer"
+    },
+    "ic_uopname": {
+        "description": "ICU admission",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "ic_udatopn": {
+        "description": "Date of (first) ICU admission",
+        "data_type": "date",
+        "depends_on": "ic_uopname == 1"
+    },
+    "ic_udatont": {
+        "description": "Date of (last) ICU discharge",
+        "data_type": "date",
+        "depends_on": "ic_uopname == 1"
+    },
+    "heropname_binnen_90": {
+        "description": "Readmission to hospital within 90 days",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "adjuvant_treatment": {
+        "description": "Adjuvant treatment",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "typechemotherapy": {
+        "description": "Type of chemotherapy",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "1": "FOLFIRINOX",
+            "2": "Gemcitabine",
+            "3": "Other, namely"
+        },
+        "depends_on": "adjuvant_treatment == 1"
+    },
+    "typechemothanders": {
+        "description": "Description of other type of chemotherapy",
+        "data_type": "string",
+        "depends_on": "typechemotherapy == 3"
+    },
+    "adjdat": {
+        "description": "Date start of adjuvant therapy",
+        "data_type": "date",
+        "depends_on": "adjuvant_treatment == 1"
+    },
+    "opmerking": {
+        "description": "Extra information regarding adjuvant therapy",
+        "data_type": "string",
+        "depends_on": "adjuvant_treatment == 1"
+    },
+    "hospitalstay": {
+        "description": "Length of hospital stay (days)",
+        "data_type": "integer"
+    },
+    "pd": {
+        "description": "?",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "invasive_interv": {
+        "description": "Invasive (re)intervention",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "ic": {
+        "description": "ICU admission",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "ic_days": {
+        "description": "Length of ICU stay (days)",
+        "data_type": "integer",
+        "depends_on": "ic == 1 | ic_uopname == 1"
+    },
+    "ic_later": {
+        "description": "?",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "ic_later_onset": {
+        "description": "?",
+        "data_type": "integer"
+    },
+    "ic_later_days": {
+        "description": "?",
+        "data_type": "integer"
+    },
+    "sof": {
+        "description": "Single-organ failure",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "sof_later": {
+        "description": "?",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "sof_later_onset": {
+        "description": "?",
+        "data_type": "integer"
+    },
+    "sof_days": {
+        "description": "?",
+        "data_type": "integer"
+    },
+    "mof": {
+        "description": "Multi-organ failure",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "mof_later": {
+        "description": "?",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "mof_later_onset": {
+        "description": "?",
+        "data_type": "integer"
+    },
+    "mof_days": {
+        "description": "?",
+        "data_type": "integer"
+    },
+    "opnameduur": {
+        "description": "Length of hospital stay (days)",
+        "data_type": "integer"
+    },
+    "operative_bloodloss_compl": {
+        "description": "Blood loss (mL) during procedure",
+        "data_type": "integer"
+    },
+    "crossover": {
+        "description": "Cross-over date implementation phase",
+        "data_type": "date"
+    },
+    "death_90d": {
+        "description": "Death within 90 days",
+        "data_type": "factor",
+        "values": {
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "neoadjuvant_yn": {
+        "description": "Neoadjuvant treatment",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "time_to_readmission2_10d": {
+        "description": "Hospital readmission within 10 days",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "crpopf": {
+        "description": "Clinically relevant (CR) post-operative pancreatic fistula (POPF)",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "c_rgallek": {
+        "description": "Clinically relevant (CR) biliary leakage",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "c_rchylus": {
+        "description": "Clinically relevant (CR) chylus leakage",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "crdge": {
+        "description": "Clinically relevant (CR) delayed gastric emptying",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "crpph": {
+        "description": "Clinically relevant (CR) post-pancreatectomy hemorrhage",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "pph_pod": {
+        "description": "Post-operative day of post-pancreatectomy hemorrhage (days)",
+        "data_type": "integer"
+    },
+    "popf_pod": {
+        "description": "Post-operative day of post-operative pancreatic fistula (days)",
+        "data_type": "integer"
+    },
+    "gallek_pod": {
+        "description": "Post-operative day of biliary leakage (days)",
+        "data_type": "integer"
+    },
+    "chylus_pod": {
+        "description": "Post-operative day of chylus leakage (days)",
+        "data_type": "integer"
+    },
+    "ge_pod": {
+        "description": "Post-operative day of delayed gastric emptying (days)",
+        "data_type": "integer"
+    },
+    "major_complications": {
+        "description": "Major complications",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }       
+    },
+    "minimally_invasive_resection_yn": {
+        "description": "Minimally invasive resection",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }       
+    },
+    "pa_groups": {
+        "description": "Histopathological diagnosis",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "PDAC": "Pancreatic ductal adenocarcinoma",
+            "CholangioCa": "Cholangiocarcinoma",
+            "PapilCa": "Papil van Vater carcinoma",
+            "IPMN": "IPMN",
+            "PNET": "PNET",
+            "Itis": "Pancreatitis",
+            "Other": "Other"
+        }
+    },
+    "lengte": {
+        "description": "Patient height (cm)",
+        "data_type": "integer"
+    },
+    "gewicht": {
+        "description": "Patient body weight (kg)",
+        "data_type": "integer"
+    },
+    "gewverlies": {
+        "description": "Weight loss (kg)",
+        "data_type": "integer"
+    },
+    "gewperiode": {
+        "description": "Period of weight loss (weeks)",
+        "data_type": "integer"
+    },
+    "verwijsdat": {
+        "description": "Date of referral",
+        "data_type": "date"
+    }
+}
