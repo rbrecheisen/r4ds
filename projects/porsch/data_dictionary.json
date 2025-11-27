@@ -472,5 +472,104 @@
     "verwijsdat": {
         "description": "Date of referral",
         "data_type": "date"
+    },
+    "bilirubine": {
+        "description": "Pre-operative bilirubin (μmol/L)",
+        "data_type": "integer"
+    },
+    "hemoglobine": {
+        "description": "Hemoglobin (mmol/L)",
+        "data_type": "float"
+    },
+    "albu": {
+        "description": "Albumin (g)",
+        "data_type": "integer"
+    },
+    "datok": {
+        "description": "Date of resection",
+        "data_type": "date"
+    },
+    "invasief": {
+        "description": "Resection started minimally invasive",
+        "data_type": "factor",
+         "values": {
+            "0": "No, fully open procedure",
+            "1": "Yes, laparoscopy with conversion to open",
+            "2": "Yes, laparoscopy without conversion",
+            "3": "Yes, robot-assisted with conversion (to open?)",
+            "4": "Yes, robot-assisted without conversion"
+        }
+    },
+    "invasiefdim": {
+        "description": "?",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "1": "?",
+            "2": "?"
+        }
+    },
+    "exlapzbypass": {
+        "description": "Exploratory laparotomy without bypass",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown"
+        }
+    },
+    "bildianastomose": {
+        "description": " Biliodigestive anastomosis",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown"
+        }
+    },
+    "gastrojejuno": {
+        "description": " Gastrojejunostomy",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown"
+        }
+    },
+    "coelblok": {
+        "description": "Coeliacus blockage",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown"
+        }
+    },
+    "resanders": {
+        "description": "Other procedure",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown"
+        }
+    },
+    "resonbekend": {
+        "description": "Unknown procedure",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown"
+        }
+    },
+    "resecveneus": {
+        "description": "Venous resection of portal vein and/or superior mesenteric vein",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Wedge",
+            "2": "End-to-end segment without interposition graft",
+            "3": "End-to-end segment with venous interposition graft",
+            "4": "End-to-end segment with plastic interposition graft"
+        }
+    },
+    "resecart": {
+        "description": "Arterial resection",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
     }
 }
