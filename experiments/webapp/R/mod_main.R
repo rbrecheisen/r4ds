@@ -10,7 +10,7 @@
 mod_main_ui <- function(id) {
   ns <- NS(id)
   tagList(
- 
+    h2("Shiny Web App")
   )
 }
     

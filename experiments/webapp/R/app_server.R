@@ -5,5 +5,8 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
-  # Your application server logic
+  res_auth <- shinymanager::secure_server(
+    check_credentials = shinymanager::check_credentials("inst/secure/credentials.sqlite")
+  )
+  mod_main_server("main_1")
 }
