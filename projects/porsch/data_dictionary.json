@@ -225,7 +225,7 @@
         "data_type": "integer"
     },
     "pd": {
-        "description": "?",
+        "description": "Ductus pancreaticus < 3mm",
         "data_type": "factor",
         "values": {
             "0": "No",
@@ -570,6 +570,520 @@
             "NA": "Unknown",
             "0": "No",
             "1": "Yes"
+        }
+    },
+    "arthepcomprop": {
+        "description": "Arteria hepatica communic of propria",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resectart == 1"
+    },
+    "arthepdexacces": {
+        "description": "Arteria hepatica dextra - accessory",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resectart == 1"
+    },
+    "arthepaberrant": {
+        "description": "Arteria hepatica dextra - aberrant",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resectart == 1"
+    },
+    "truncuscoel": {
+        "description": "Truncus coeliacus",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resectart == 1"
+    },
+    "artmesent": {
+        "description": "Arteria mesenterica superior",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resectart == 1"
+    },
+    "resecanders": {
+        "description": "Other (arterial) resection",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resectart == 1"
+    },
+    "resecaanv": {
+        "description": "Additional resection",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "resecmiltint": {
+        "description": "Spleen intentional",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resecaanv == 1"
+    },
+    "mesoctransv": {
+        "description": "Mesocolon transversum",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resecaanv == 1"
+    },
+    "colonsegm": {
+        "description": "Colon segment",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resecaanv == 1"
+    },
+    "hemicolr": {
+        "description": "(Extended) right-sided hemicolonectomy",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resecaanv == 1"
+    },
+    "maagresec": {
+        "description": "(Partial) stomach resection",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resecaanv == 1"
+    },
+    "aanvanders": {
+        "description": "Other additional resection",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "resecaanv == 1"
+    },
+    "drain_dpca": {
+        "description": "Intra-abdominal drain",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "octreo": {
+        "description": "Octreotide peri-operative",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "compl": {
+        "description": "Complications during hospital stay or within 30 days after surgery",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "pneumonie": {
+        "description": "Pneumonia",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "compl == 1"
+    },
+    "wondinfectie": {
+        "description": "Wound infection",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "compl == 1"
+    },
+    "transfusie": {
+        "description": "Blood transfusion",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        },
+        "depends_on": "compl == 1"
+    },
+    "origine": {
+        "description": "Most probably tumor origin",
+        "data_type": "factor",
+        "values": {
+            "1": "Pancreas",
+            "2": "Distal biliary tract",
+            "3": "Papil van Vater",
+            "4": "Duodenum",
+            "5": "Other",
+            "7": "Unknown"
+        }
+    },
+    "histdiagnpost": {
+        "description": "Histopathological diagnosis",
+        "data_type": "factor",
+        "values": {
+            "1": "Adenocarcinoma - not IPMN or MCN",
+            "2": "Neuroendocrine neoplasm",
+            "3": "IPMN",
+            "4": "Mucinous cystic neoplasm",
+            "5": "Adenoma - intestinal",
+            "6": "Solid pseudopapillairy neoplasm",
+            "7": "Sereus cystadenoma",
+            "8": "Chronic pancreatitis",
+            "77": "Other",
+            "19": "Could not be determined",
+            "99": "Unknown"
+        }
+    },
+    "ipmnpost": {
+        "description": "IPMN stage",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No malignancy",
+            "1": "Low-grade dysplasia",
+            "2": "Intermediate-grade dysplasia",
+            "3": "High-grade dysplasia",
+            "4": "Invasive carcinoma"
+        },
+        "depends_on": "histdiagnpost == 3"
+    },
+    "mcneopost": {
+        "description": "Mucinous cystic neoplasm stage",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No malignancy",
+            "1": "Low-grade dysplasia",
+            "2": "Intermediate-grade dysplasia",
+            "3": "High-grade dysplasia",
+            "4": "Invasive carcinoma"
+        },
+        "depends_on": "histdiagnpost == 4"
+    },
+    "netpost": {
+        "description": "NET stage",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown"
+        }
+    },
+    "diameterpost": {
+        "description": "Largest diameter tumor (mm)",
+        "data_type": "integer"
+    },
+    "radicaliteit": {
+        "description": "Radicality",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "R0",
+            "1": "R1"
+        }
+    },
+    "radmarge": {
+        "description": "Margin radicality (mm)",
+        "data_type": "integer"
+    },
+    "differentiatie": {
+        "description": "Tumor differentiation grade",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "1": "Grade I",
+            "2": "Grade II",
+            "3": "Grade III",
+            "4": "Grade IV",
+            "8": "Not applicable"
+        }
+    },
+    "diffnet": {
+        "description": "Differentiation grade NET",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "1": "WHO 1",
+            "2": "WHO 2",
+            "3": "WHO 3",
+            "8": "Not applicable"
+        }
+    },
+    "stadptpanc": {
+        "description": "pT stage pancreas carcinoma",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "1": "T1",
+            "2": "T2",
+            "3": "T3",
+            "4": "T4"
+        }
+    },
+    "stadptpanc2018": {
+        "description": "pT stage pancreas carcinoma (2018)",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "1": "?",
+            "2": "?",
+            "3": "?",
+            "4": "?",
+            "5": "?",
+            "6": "?",
+            "7": "?"
+        }
+    },
+    "stadptpapil": {
+        "description": "pT stage papillary carcinoma",
+        "data_type": "factor",
+        "values": {
+             "NA": "Unknown",
+            "1": "T1",
+            "2": "T2",
+            "3": "T3",
+            "4": "T4"           
+        }
+    },
+    "stadptpapil2019": {
+        "description": "pT stage papillary carcinoma (2019)",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "2": "?",
+            "3": "?",
+            "4": "?",
+            "5": "?",
+            "6": "?",
+            "10": "?"
+        }
+    },
+    "stadptdistaal": {
+        "description": "pT stage distal cholangio carcinoma",
+        "data_type": "factor",
+        "values": {
+             "NA": "Unknown",
+            "1": "T1",
+            "2": "T2",
+            "3": "T3",
+            "4": "T4"           
+        }
+    },
+    "stadptdistaal2019": {
+        "description": "pT stage distal cholangio carcinoma (2019)",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "2": "?",
+            "3": "?",
+            "4": "?",
+            "5": "?"
+        }
+    },
+    "stadptduodenum2019": {
+        "description": "?",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "3": "?",
+            "4": "?",
+            "5": "?",
+            "6": "?"
+        }
+    },
+    "id": {
+        "description": "Patient ID",
+        "data_type": "string"
+    },
+    "upn": {
+        "description": "Patient ID"
+    },
+    "gebdat": {
+        "description": "Date of birth",
+        "data_type": "date"
+    },
+    "datcom_x": {
+        "description": "?",
+        "data_type": "date"
+    },
+    "crp": {
+        "description": "C-reactive protein (mg/L)",
+        "data_type": "float"
+    },
+    "crp_dat": {
+        "description": "Date CRP measurement",
+        "data_type": "date"
+    },
+    "pre_ct": {
+        "description": "Preoperative CT",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "pre_ctdat": {
+        "description": "Date preoperative CT",
+        "data_type": "factor",
+        "depends_on": "pre_ct == 1"
+    },
+    "pre_ct_analy": {
+        "description": "Preoperative CT analyzed",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes",
+            "2": "Yes, but SAT not usable",
+            "3": "Yes, but not usable"
+        }
+    },
+    "neoadj_ct": {
+        "description": "CT before neoadjuvant therapy",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes"
+        }
+    },
+    "neoadj_ctdat": {
+        "description": "Date CT before neoadjuvant therapy",
+        "data_type": "date"
+    },
+    "neoadj_analy": {
+         "description": "CT before neoadjuvant therapy analyzed",
+        "data_type": "factor",
+        "values": {
+            "NA": "Unknown",
+            "0": "No",
+            "1": "Yes",
+            "2": "Yes, but SAT not usable",
+            "3": "Yes, but not usable"
+        }       
+    },
+    "smra": {
+        "description": "Skeletal muscle radiation attenuation (HU)",
+        "data_type": "float"
+    },
+    "muscle_area": {
+        "description": "Skeletal muscle area (cm^2)",
+        "data_type": "float"
+    },
+    "vat_ra": {
+        "description": "Visceral fat radiation attenuation (HU)",
+        "data_type": "float"
+    },
+    "vat_area": {
+        "description": "Visceral fat area (cm^2)",
+        "data_type": "float"
+    },
+    "sat_ra": {
+        "description": "Subcutaneous fat radiation attenuation (HU)",
+        "data_type": "float"
+    },
+    "sat_area": {
+        "description": "Subcutaneous fat area (cm^2)",
+        "data_type": "float"
+    },
+    "smra_neo": {
+        "description": "Skeletal muscle radiation attenuation (HU) pre-neoadjuvant therapy",
+        "data_type": "float"
+    },
+    "muscle_neo": {
+        "description": "Skeletal muscle area (cm^2) pre-neoadjuvant therapy",
+        "data_type": "float"
+    },
+    "vat_ra_neo": {
+        "description": "Visceral fat radiation attenuation (HU) pre-neoadjuvant therapy",
+        "data_type": "float"
+    },
+    "vat_neo": {
+        "description": "Visceral fat area (cm^2) pre-neoadjuvant therapy",
+        "data_type": "float"
+    },
+    "sat_ra_neo": {
+        "description": "Subcutaneous fat radiation attenuation (HU) pre-neoadjuvant therapy",
+        "data_type": "float"
+    },
+    "sat_neo": {
+        "description": "Subcutaneous fat area (cm^2) pre-neoadjuvant therapy",
+        "data_type": "float"
+    },
+    "institute_abbreviation_castor_y": {
+        "description": "Institute abbreviation",
+        "data_type": "factor",
+        "values": {
+            "AUMC": "Amsterdam UMC",
+            "MAZ": "Maasstad Ziekenhuis Rotterdam",
+            "SAZ": "St. Antonius Ziekenhuis Nieuwegein",
+            "UMCU": "UMC Utrecht",
+            "OLVG": "OLVG Amsterdam",
+            "VUmc": "Amsterdam UMC - VUmc",
+            "EMC": "Erasmus MC Rotterdam",
+            "Amphi": "Amphia Ziekenhuis Breda",
+            "Tjong": "Tjongerjans Heerenveen",
+            "UMCG": "UMC Groningen",
+            "ISALA": "Isala Ziekenhuis Zwolle",
+            "MST": "Medisch Spectrum Twente",
+            "RUMC": "Radbouw UMC",
+            "Catha": "Catharina Ziekenhuis Eindhoven",
+            "RdG": "Reinier de Graaf",
+            "MUMC": "Maastricht UMC+",
+            "JPZ": "Jeroen Bosch Ziekenhuis",
+            "LUMC": "Leids UMC"
         }
     }
 }
