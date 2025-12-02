@@ -1,6 +1,8 @@
 required_packages <- c(
   "tidyverse",
-  "janitor"
+  "janitor",
+  "xgboost",
+  "mice"
 )
 
 install_if_missing <- function(pkgs) {
