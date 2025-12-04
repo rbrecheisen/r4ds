@@ -1,50 +1,88 @@
-# app.R
+# --------------------------------------------------------------------------
+# Install and load dependencies
+# --------------------------------------------------------------------------
+required_packages <- c("shiny", "shiny.router")
+install_if_missing <- function(pkgs) {
+  missing <- pkgs[!(pkgs %in% installed.packages()[, "Package"])]
+  if(length(missing)) {
+    message("Installing missing packages: ", paste(missing, collapse = ", "))
+    install.packages(missing, dependencies = TRUE)
+  }
+}
+install_if_missing(required_packages)
+invisible(lapply(required_packages, library, character.only = TRUE))
 library(shiny)
 library(shiny.router)
 
-# --- Page UIs -------------------------------------------------------------
 
-home_page <- div(
-  h2("Home page"),
-  p("This is the home page."),
+# --------------------------------------------------------------------------
+# Upload page
+# --------------------------------------------------------------------------
+upload_page <- div(
+  h2("Upload your Excel data"),
+  p("This is the upload page"),
   br(),
-  actionLink("to_about", "Go to About page")
+  actionLink("to_preparation", "Go to preparation page")
 )
 
-about_page <- div(
-  h2("About page"),
-  p("This is the about page."),
+
+# --------------------------------------------------------------------------
+# Data preparation page
+# --------------------------------------------------------------------------
+preparation_page <- div(
+  h2("Preparing your data"),
+  p("This is a page for preparing your data"),
   br(),
-  actionLink("to_home", "Back to Home page")
+  actionLink("to_visualization", "Go to visualization page"),
+  actionLink("to_upload", "Back to upload page")
 )
 
-# --- App UI with router ---------------------------------------------------
 
+# --------------------------------------------------------------------------
+# Data preparation page
+# --------------------------------------------------------------------------
+visualization_page <- div(
+  h2("Visualizing your data"),
+  p("This is a page for visualizing your data nicely"),
+  br(),
+  actionLink("to_preparation", "Back to preparation page"),
+  actionLink("to_upload", "Back to upload page")
+)
+
+
+# --------------------------------------------------------------------------
+# Main UI with router
+# --------------------------------------------------------------------------
 ui <- fluidPage(
-  titlePanel("shiny.router + actionLink demo"),
+  titlePanel("Shiny template"),
   tags$hr(),
   router_ui(
-    route("/", home_page),     # default route
-    route("about", about_page) # second page
+    route("/", upload_page),
+    route("upload", upload_page),
+    route("preparation", preparation_page),
+    route("visualization", visualization_page)
   )
 )
 
-# --- Server ---------------------------------------------------------------
 
+# --------------------------------------------------------------------------
+# Main server
+# --------------------------------------------------------------------------
 server <- function(input, output, session) {
-  # Initialize router
   router_server(root_page = "/")
-
-  # Use actionLink clicks to change the current page
-  observeEvent(input$to_about, {
-    change_page("about")
+  observeEvent(input$to_preparation, {
+    change_page("preparation")
   })
-
-  observeEvent(input$to_home, {
+  observeEvent(input$to_visualization, {
+    change_page("visualization")
+  })
+  observeEvent(input$to_upload, {
     change_page("/")
   })
 }
 
-# --- Run app --------------------------------------------------------------
 
+# --------------------------------------------------------------------------
+# Run app
+# --------------------------------------------------------------------------
 shinyApp(ui, server)
