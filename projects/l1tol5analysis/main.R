@@ -50,13 +50,14 @@ generate_plot <- function(scores, tissue_prop) {
     mutate(
       slice_num = readr::parse_number(column),
       slice_pos = str_extract(column, "[BMO]"),
-      slice_pos = factor(slice_pos, levels = c("B", "M", "O"))  # correct anatomical order
+      slice_pos = factor(slice_pos, levels = c("O", "M", "B"))  # correct anatomical order
     )
-  p <- ggplot(pvals, aes(x = p_value, y = fct_reorder(column, slice_num))) +
+  p <- ggplot(pvals, aes(x = p_value, y = fct_reorder2(column, slice_pos, slice_num))) +
     geom_point(size = 3) +
     geom_text(aes(label = sprintf("%.3g", p_value)), nudge_x = 0.02, size = 3, hjust = 0) +
     geom_vline(xintercept = 0.05, linetype = "dashed", color = "red") +
     scale_x_continuous("p-value") +
+    scale_y_discrete(limits = rev) +
     ylab("Column") +
     theme_minimal()
   return(p)
